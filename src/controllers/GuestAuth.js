@@ -1,4 +1,4 @@
-const Guest = require('../../db/models/Guest')
+const Guest = require('../../models/Guest')
 
 //Guest user registartion request
 exports.guestRegistration =  async (req, res) => {
@@ -58,3 +58,4 @@ exports.guestLogin = async (req, res) => {
   }
   
 }
+
