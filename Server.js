@@ -7,7 +7,6 @@ const port = process.env.PORT
 const Guestroute = require('./src/route/guestRoutes')
 const MemberRoute = require('./src/route/MembersRoute')
 const AdminRoute = require('./src/route/AdminRoute');
-const { Menu } = require('./src/controllers/AdminController');
 
 
 app.use(cors());
