@@ -136,7 +136,6 @@ exports.deleteImage = async (req, res) => {
 
 exports.editDish = async(req, res) => {
     const {dishName, dishPrice, Dishdescription, id} = req.body
-    const prefix = 'https://irkrmdwtasxwzpfiuxja.supabase.co/storage/v1/object/public/rImage'
 
     try {
 
@@ -160,17 +159,39 @@ exports.editDish = async(req, res) => {
   
 }
 
-exports.editDishImage = async(req, res) => {
+exports.editDishImage = [Upload.single("dishImage"), async(req, res) => {
     try {
+        const {id} = req.params
         const file = req.file; // File info from multer
-        
+        const {originalname, buffer, mimeType} = file
+       
+        const filePath = `${Date.now()}_${originalname}`
 
-        console.log('File details:', file);
+        await Supabase
+        .storage
+        .from('rImage')
+        .upload(filePath, buffer, {
+            contentType: mimeType,
+            upsert: true
+        })
 
+        const {data} = Supabase
+        .storage
+        .from('rImage')
+        .getPublicUrl(filePath)
+
+        const upadate = await Dish.update({dishImage: data.publicUrl}, {where: {id: id}})
+
+        if(upadate){
+            res.json({success: true, message: "photo updated"})
+        }else{
+            res.json({message: "something went wrong will processing your request please check your internet connection"})
+        }
      
     } catch (error) {
         console.error('Error processing request:', error);
+        res.json({message: "internal server error"})
         
     }
     
-}
+}]
