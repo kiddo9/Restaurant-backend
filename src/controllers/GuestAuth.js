@@ -59,3 +59,10 @@ exports.guestLogin = async (req, res) => {
   
 }
 
+exports.guests = async(req, res) => {
+   const guests = await Guest.findAll()
+
+   res.json(guests);
+   
+}
+

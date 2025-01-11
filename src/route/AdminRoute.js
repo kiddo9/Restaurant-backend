@@ -2,6 +2,7 @@ const express = require('express')
 const Route = express.Router()
 const DishController = require('./../controllers/AdminController')
 const tableController = require('./../controllers/tableController')
+const adminUser = require('./../controllers/adminUsers')
 
 Route.post('/dishes', DishController.Menu);
 Route.get('/getDishes', DishController.getMenu)
@@ -19,5 +20,8 @@ Route.get('/table/:id', tableController.editTable)
 Route.delete('/delete/image/table/:id', tableController.deleteImage)
 Route.put('/update/table', tableController.updateTable)
 Route.put('/update/tableImage/:id', tableController.updateTableImage)
+
+Route.post('/staffregistration', adminUser.staffregistration)
+Route.get('/staffs', adminUser.Staffs)
 
 module.exports = Route
