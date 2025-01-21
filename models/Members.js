@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize')
 const MembersTable = require('../config/db_connection')
 
-const Members = MembersTable.define('Members',{
+const Members = MembersTable.define('members',{
     email: {
         type: DataTypes.STRING
     },
@@ -12,7 +12,12 @@ const Members = MembersTable.define('Members',{
 
     password: {
         type: DataTypes.STRING
+    },
+    token:{
+        type: DataTypes.STRING
     }
+}, {
+    tableName: 'members'
 })
 
 module.exports = Members

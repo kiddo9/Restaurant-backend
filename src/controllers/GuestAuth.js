@@ -48,7 +48,7 @@ exports.guestLogin = async (req, res) => {
     const existingId = await Guest.findOne({where: {guestid: guestId}})
 
     if(existingId) {
-      res.json({success: 'true', message: 'Authentication successful. Click ok to proceed'})
+      res.json({success: 'true', message: 'Authentication successful. Click ok to proceed', email: existingId.guestemail})
     }else{
       res.json({message: 'Authentication failed. Guest not found'})
     }
@@ -64,5 +64,32 @@ exports.guests = async(req, res) => {
 
    res.json(guests);
    
+}
+
+exports.deleteGuest = async(req, res) => {
+    
+  try {
+
+      const {id} = req.params
+      
+      const userExists = await Guest.findOne({where: {id}})
+
+      if(!userExists){
+          res.json({message: 'user does not exist'})
+      }
+
+      const deleteGuest = await Guest.destroy({where: {id: id}})
+
+      if(!deleteGuest){
+          res.json({message: 'unable to complete request check your internet connection'})
+      }
+      
+      res.json({success: true, message: `guest has been deleted`})
+      
+  } catch (error) {
+      console.log(error);
+      res.json({message: 'something went wrong'})
+  }
+  
 }
 

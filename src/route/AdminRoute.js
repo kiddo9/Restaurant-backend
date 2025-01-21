@@ -23,5 +23,14 @@ Route.put('/update/tableImage/:id', tableController.updateTableImage)
 
 Route.post('/staffregistration', adminUser.staffregistration)
 Route.get('/staffs', adminUser.Staffs)
+Route.post('/staffs/setpassword/:email', adminUser.setPassword)
+Route.post('/login/admin', adminUser.loginAdmin)
+Route.post('/login/staff', adminUser.loginStaff)
+Route.get('/tokenverify', adminUser.verifyToken)
+Route.post('/admin/email/verify', adminUser.emailVerification)
+Route.post('/admin/otp/verify/:token', adminUser.otpValidate)
+Route.post('/otp/resend/:token', adminUser.resendOtp)
+Route.post('/staff/resetpassword/:token', adminUser.resetPassword)
+Route.delete('/admin/delete/:id', adminUser.deleteStaff)
 
 module.exports = Route
