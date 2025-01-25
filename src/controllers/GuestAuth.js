@@ -93,3 +93,11 @@ exports.deleteGuest = async(req, res) => {
   
 }
 
+
+
+exports.bookTable = async(req, res) => {
+  const {preference, firstname, lastname, mobile, nog, date, time} = req.body
+
+  console.log(req.body);
+  
+}
